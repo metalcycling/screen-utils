@@ -1,0 +1,49 @@
+#!/bin/bash
+
+#
+# Setup a screen for Kubernetes and Python development
+#
+
+# Get environment path
+
+if [[ -z ${VIRTUAL_ENV} ]]; then
+    environment="/Users/metalcycling/.venv/research"
+    echo "INFO: Using '${environment}' as Python environment. Set environment variable 'VIRTUAL_ENV' to specify the path of a different Python environment."
+else
+    environment=${VIRTUAL_ENV}
+fi
+
+if [[ ! -f ${environment}/bin/activate ]]; then
+    echo "ERROR: Directory '${environment}' is not a valid Python environment (i.e., file '${environment}/bin/activate' doesn't exist)"
+fi
+
+# Set session name
+
+if [[ -z ${STY} ]]; then
+    echo "ERROR: You need to run this script from inside a running screen session"
+    exit 1
+fi
+
+session=${STY}
+
+# Create one window for Kubernetes monitoring and one for IPython
+
+screen -S ${session} -X screen
+screen -S ${session} -X screen
+
+# Build layout
+
+screen -S ${session} -X split -v
+screen -S ${session} -X focus
+screen -S ${session} -X resize -h 81
+screen -S ${session} -X select 1
+screen -S ${session} -X split -h
+screen -S ${session} -X focus
+screen -S ${session} -X resize -v 20
+screen -S ${session} -X select 0
+screen -S ${session} -X focus
+
+# Run monitoring
+
+screen -S ${session} -p 1 -X stuff "source ${environment}/bin/activate && watch -n 0.2 \"monkube -r pods\" $(printf \\r)"
+screen -S ${session} -p 0 -X stuff "source ${environment}/bin/activate && ipython $(printf \\r)"
