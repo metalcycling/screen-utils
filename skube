@@ -15,6 +15,7 @@ fi
 
 if [[ ! -f ${environment}/bin/activate ]]; then
     echo "ERROR: Directory '${environment}' is not a valid Python environment (i.e., file '${environment}/bin/activate' doesn't exist)"
+    exit 1
 fi
 
 # Set session name
