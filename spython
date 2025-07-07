@@ -9,6 +9,11 @@
 if [[ -z ${VIRTUAL_ENV} ]]; then
     environment="/Users/metalcycling/.venv/research"
     echo "INFO: Using '${environment}' as Python environment. Set environment variable 'VIRTUAL_ENV' to specify the path of a different Python environment."
+    read -p "Do you wish to continue? (Y/n): " reply
+    case ${reply} in
+        n|N ) exit;;
+        * ) ;;
+    esac
 else
     environment=${VIRTUAL_ENV}
 fi
