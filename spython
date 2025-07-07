@@ -46,4 +46,4 @@ screen -S ${session} -X focus
 
 # Start IPython
 
-screen -S ${session} -p 0 -X stuff "source ${environment}/bin/activate && ipython $(printf \\r)"
+screen -S ${session} -p 0 -X stuff "clear && source ${environment}/bin/activate && ipython $(printf \\r)"

@@ -51,5 +51,5 @@ screen -S ${session} -X focus
 
 # Run monitoring
 
-screen -S ${session} -p 1 -X stuff "source ${environment}/bin/activate && watch -n 0.2 \"monkube -r pods\" $(printf \\r)"
-screen -S ${session} -p 0 -X stuff "source ${environment}/bin/activate && watch -n 0.2 \"monkube -nd full\" $(printf \\r)"
+screen -S ${session} -p 1 -X stuff "clear && source ${environment}/bin/activate && watch -n 0.2 \"monkube -r pods\" $(printf \\r)"
+screen -S ${session} -p 0 -X stuff "clear && source ${environment}/bin/activate && watch -n 0.2 \"monkube -nd full\" $(printf \\r)"
